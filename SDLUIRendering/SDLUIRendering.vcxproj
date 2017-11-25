@@ -18,6 +18,33 @@
       <Platform>x64</Platform>
     </ProjectConfiguration>
   </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="DX\DataStructs.h" />
+    <ClInclude Include="DX\GfxBuffers.h" />
+    <ClInclude Include="DX\GfxDevice.h" />
+    <ClInclude Include="DX\GfxModel.h" />
+    <ClInclude Include="DX\GfxPixelShader.h" />
+    <ClInclude Include="DX\GfxShader.h" />
+    <ClInclude Include="DX\GfxTexture.h" />
+    <ClInclude Include="DX\GfxVertexShader.h" />
+    <ClInclude Include="stdafx.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="DX\GfxBuffers.cpp" />
+    <ClCompile Include="DX\GfxDevice.cpp" />
+    <ClCompile Include="DX\GfxModel.cpp" />
+    <ClCompile Include="DX\GfxPixelShader.cpp" />
+    <ClCompile Include="DX\GfxShader.cpp" />
+    <ClCompile Include="DX\GfxTexture.cpp" />
+    <ClCompile Include="DX\GfxVertexShader.cpp" />
+    <ClCompile Include="main.cpp" />
+    <ClCompile Include="stdafx.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <FxCompile Include="Shaders\Shaders.fx">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
+    </FxCompile>
+  </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>15.0</VCProjectVersion>
     <ProjectGuid>{FAC66F3E-B654-4244-96B3-81B04C6ADBED}</ProjectGuid>
@@ -29,7 +56,7 @@
     <ConfigurationType>Application</ConfigurationType>
     <UseDebugLibraries>true</UseDebugLibraries>
     <PlatformToolset>v141</PlatformToolset>
-    <CharacterSet>MultiByte</CharacterSet>
+    <CharacterSet>Unicode</CharacterSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
@@ -69,13 +96,23 @@
     <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
-  <PropertyGroup />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <IncludePath>D:\Private\Projects\dx\SDLUIRendering\deps\SDL2-2.0.7\include;$(IncludePath)</IncludePath>
+    <LibraryPath>D:\Private\Projects\dx\SDLUIRendering\deps\SDL2-2.0.7\lib\x64;$(LibraryPath)</LibraryPath>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <IncludePath>D:\Private\Projects\dx\SDLUIRendering\deps\SDL2-2.0.7\include;$(IncludePath)</IncludePath>
+    <LibraryPath>D:\Private\Projects\dx\SDLUIRendering\deps\SDL2d\lib;$(LibraryPath)</LibraryPath>
+  </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
       <SDLCheck>true</SDLCheck>
     </ClCompile>
+    <Link>
+      <AdditionalDependencies>SDL2.lib;SDL2main.lib;%(AdditionalDependencies)</AdditionalDependencies>
+    </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <ClCompile>
@@ -83,6 +120,13 @@
       <Optimization>Disabled</Optimization>
       <SDLCheck>true</SDLCheck>
     </ClCompile>
+    <Link>
+      <AdditionalDependencies>SDL2d.lib;SDL2maind.lib;D3D11.lib;D3DCompiler.lib;%(AdditionalDependencies)</AdditionalDependencies>
+    </Link>
+    <PostBuildEvent>
+      <Command>copy /Y "$(SolutionDir)deps\SDL2d\dll\SDL2d.*" "$(SolutionDir)x64\Debug\SDL2d.*"
+xcopy /y /i "$(SolutionDir)SDLUIRendering\Shaders\*.fx" "$(SolutionDir)x64\Debug\Shaders\"</Command>
+    </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <ClCompile>
@@ -110,8 +154,6 @@
       <OptimizeReferences>true</OptimizeReferences>
     </Link>
   </ItemDefinitionGroup>
-  <ItemGroup>
-  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>
