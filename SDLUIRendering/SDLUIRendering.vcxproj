@@ -19,7 +19,6 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="DX\DataStructs.h" />
     <ClInclude Include="DX\GfxBuffers.h" />
     <ClInclude Include="DX\GfxDevice.h" />
     <ClInclude Include="DX\GfxModel.h" />
@@ -27,7 +26,14 @@
     <ClInclude Include="DX\GfxShader.h" />
     <ClInclude Include="DX\GfxTexture.h" />
     <ClInclude Include="DX\GfxVertexShader.h" />
+    <ClInclude Include="RenderDevice.h" />
+    <ClInclude Include="Scene\Model.h" />
+    <ClInclude Include="Scene\UIScene.h" />
     <ClInclude Include="stdafx.h" />
+    <ClInclude Include="Types\DataStructs.h" />
+    <ClInclude Include="Types\RenderTypes.h" />
+    <ClInclude Include="Types\VArray.h" />
+    <ClInclude Include="Types\VTypes.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="DX\GfxBuffers.cpp" />
@@ -37,8 +43,12 @@
     <ClCompile Include="DX\GfxShader.cpp" />
     <ClCompile Include="DX\GfxTexture.cpp" />
     <ClCompile Include="DX\GfxVertexShader.cpp" />
+    <ClCompile Include="RenderDevice.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="Scene\Model.cpp" />
+    <ClCompile Include="Scene\UIScene.cpp" />
     <ClCompile Include="stdafx.cpp" />
+    <ClCompile Include="Types\Types.cpp" />
   </ItemGroup>
   <ItemGroup>
     <FxCompile Include="Shaders\Shaders.fx">

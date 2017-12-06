@@ -116,7 +116,7 @@ void GfxBuffers::Present()
     this->swapChain->Present(0, 0);
 }
 
-void GfxBuffers::Clear(Vector4 color)
+void GfxBuffers::Clear(UITypes::Vector4 color)
 {
     FLOAT c[4] = { color.x, color.y, color.z, color.a };
     this->d3dImmediateContext->ClearRenderTargetView(this->renderTargetView.Get(), c);

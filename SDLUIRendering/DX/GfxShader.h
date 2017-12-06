@@ -1,6 +1,6 @@
 #pragma once
 
-#include "DataStructs.h"
+#include "..\Types\DataStructs.h"
 #include "GfxDevice.h"
 
 // abstract shader class

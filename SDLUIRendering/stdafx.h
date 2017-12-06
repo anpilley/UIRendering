@@ -29,7 +29,10 @@ inline void ThrowIfFailed(HRESULT hr)
     }
 }
 
-
+inline void DbgBreak()
+{
+    __debugbreak(); // MS-specific.
+}
 
 // ComPtr
 #include <wrl/client.h>

@@ -1,6 +1,6 @@
 #include "..\stdafx.h"
 
-#include "DataStructs.h"
+#include "..\Types\RenderTypes.h"
 
 #include "GfxBuffers.h"
 #include "GfxTexture.h"

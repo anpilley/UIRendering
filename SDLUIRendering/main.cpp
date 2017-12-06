@@ -1,6 +1,6 @@
 #include "stdafx.h"
 
-#include "DX\DataStructs.h"
+#include "Types\RenderTypes.h"
 
 #include "DX\GfxDevice.h"
 #include "DX\GfxBuffers.h"
@@ -8,6 +8,8 @@
 #include "DX\GfxVertexShader.h"
 #include "DX\GfxPixelShader.h"
 #include "DX\GfxModel.h"
+
+#include "RenderDevice.h"
 
 
 int WINAPI wWinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE hPrevInstance, _In_ LPWSTR lpCmdLine, _In_ int nCmdShow)
@@ -48,6 +50,8 @@ int WINAPI wWinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE hPrevInstance, 
     device = std::make_shared<GfxDevice>();
     device->Initialize(hWnd);
 
+    GRenderDevice::SetDevice(device);
+
     swapChain = std::make_shared<GfxBuffers>();
     swapChain->Initialize(device, width, height);
 
@@ -69,7 +73,7 @@ int WINAPI wWinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE hPrevInstance, 
         // rendering loop here.
         // get next buffer from swapchain
         
-        Vector4 color(0.392156899f, 0.584313750f, 0.929411829f, 1.000000000f);
+        UITypes::Vector4 color(0.392156899f, 0.584313750f, 0.929411829f, 1.000000000f);
         swapChain->Clear(color);
         model->Draw(vertexShader, pixelShader);
 

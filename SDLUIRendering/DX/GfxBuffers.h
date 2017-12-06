@@ -1,6 +1,6 @@
 #pragma once
 
-#include "DataStructs.h"
+#include "..\Types\DataStructs.h"
 #include "GfxDevice.h"
 #include "GfxTexture.h"
 
@@ -15,7 +15,7 @@ public:
 
     void Present();
 
-    void Clear(Vector4 color);
+    void Clear(UITypes::Vector4 color);
 
 private:
     Microsoft::WRL::ComPtr<IDXGISwapChain1> swapChain;

@@ -22,13 +22,22 @@
     <Filter Include="Shaders">
       <UniqueIdentifier>{c18fc4cb-207a-42af-a5c8-cd5b303728f6}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\Types">
+      <UniqueIdentifier>{c1e19fa6-326c-44e6-b092-637128e69b31}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Scene">
+      <UniqueIdentifier>{960d0721-3cb4-434f-8a30-02c70ae7b8f1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Scene">
+      <UniqueIdentifier>{5e4f7eac-829b-4305-956a-f4eabcbd028f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Types">
+      <UniqueIdentifier>{0a193daa-70fc-408d-8df9-df2263104bce}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="stdafx.h">
       <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="DX\DataStructs.h">
-      <Filter>Header Files\DX</Filter>
     </ClInclude>
     <ClInclude Include="DX\GfxBuffers.h">
       <Filter>Header Files\DX</Filter>
@@ -50,6 +59,27 @@
     </ClInclude>
     <ClInclude Include="DX\GfxVertexShader.h">
       <Filter>Header Files\DX</Filter>
+    </ClInclude>
+    <ClInclude Include="Types\DataStructs.h">
+      <Filter>Header Files\Types</Filter>
+    </ClInclude>
+    <ClInclude Include="Scene\UIScene.h">
+      <Filter>Header Files\Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="Scene\Model.h">
+      <Filter>Header Files\Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="Types\VTypes.h">
+      <Filter>Header Files\Types</Filter>
+    </ClInclude>
+    <ClInclude Include="RenderDevice.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Types\VArray.h">
+      <Filter>Header Files\Types</Filter>
+    </ClInclude>
+    <ClInclude Include="Types\RenderTypes.h">
+      <Filter>Header Files\Types</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -79,6 +109,18 @@
     </ClCompile>
     <ClCompile Include="DX\GfxVertexShader.cpp">
       <Filter>Source Files\DX</Filter>
+    </ClCompile>
+    <ClCompile Include="Scene\UIScene.cpp">
+      <Filter>Source Files\Scene</Filter>
+    </ClCompile>
+    <ClCompile Include="Scene\Model.cpp">
+      <Filter>Source Files\Scene</Filter>
+    </ClCompile>
+    <ClCompile Include="RenderDevice.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Types\Types.cpp">
+      <Filter>Source Files\Types</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
