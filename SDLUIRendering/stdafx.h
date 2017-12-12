@@ -6,6 +6,7 @@
 #include <Windows.h>
 
 #include <stdio.h>
+#include <math.h>
 #include <string>
 #include <exception>
 #include <memory>

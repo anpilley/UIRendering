@@ -11,13 +11,20 @@ namespace Scene
 
         void Initialize();
 
-        const UITypes::VArray<SimpleVertex>& GetVertexData();
-        const UITypes::VArray<UINT32>& GetIndexData();
+        const UITypes::VArray<SimpleVertex>& GetVertexData() const;
+        const UITypes::VArray<UINT16>& GetIndexData() const;
+
+        void Tick(float timeSpan);
+
+        UITypes::Matrix4x4 GetTransform() const;
     private:
-        UITypes::Matrix4x4 position;
+        UITypes::Vector3 position;
+        UITypes::Vector3 rotation;
+        UITypes::Vector3 scale;
+
         
         UITypes::VArray<SimpleVertex> vertices;
-        UITypes::VArray<UINT32> indexes;
+        UITypes::VArray<UINT16> indexes;
         
     };
 

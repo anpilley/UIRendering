@@ -3,10 +3,11 @@
 #include "Model.h"
 
 using namespace Scene;
+using namespace UITypes;
 
 Model::Model() :
     vertices(8),
-    indexes(8 * 3)
+    indexes(6 * 6)
 {
 
 }
@@ -19,23 +20,23 @@ Model::~Model()
 void Model::Initialize()
 {
     SimpleVertex initVertices[] =
-    {
-        { UITypes::Vector3(-1.0f, 1.0f, -1.0f), UITypes::Vector4(0.0f, 0.0f, 1.0f, 1.0f) },
-        { UITypes::Vector3(1.0f, 1.0f, -1.0f), UITypes::Vector4(0.0f, 1.0f, 0.0f, 1.0f) },
-        { UITypes::Vector3(1.0f, 1.0f, 1.0f), UITypes::Vector4(0.0f, 1.0f, 1.0f, 1.0f) },
-        { UITypes::Vector3(-1.0f, 1.0f, 1.0f), UITypes::Vector4(1.0f, 0.0f, 0.0f, 1.0f) },
-        { UITypes::Vector3(-1.0f, -1.0f, -1.0f), UITypes::Vector4(1.0f, 0.0f, 1.0f, 1.0f) },
-        { UITypes::Vector3(1.0f, -1.0f, -1.0f), UITypes::Vector4(1.0f, 1.0f, 0.0f, 1.0f) },
-        { UITypes::Vector3(1.0f, -1.0f, 1.0f), UITypes::Vector4(1.0f, 1.0f, 1.0f, 1.0f) },
-        { UITypes::Vector3(-1.0f, -1.0f, 1.0f), UITypes::Vector4(0.0f, 0.0f, 0.0f, 1.0f) },
+    { //  relative position             vertex color
+        { Vector3(-1.0f, 1.0f, -1.0f),  Vector4(0.0f, 0.0f, 1.0f, 1.0f) },
+        { Vector3(1.0f, 1.0f, -1.0f),   Vector4(0.0f, 1.0f, 0.0f, 1.0f) },
+        { Vector3(1.0f, 1.0f, 1.0f),    Vector4(0.0f, 1.0f, 1.0f, 1.0f) },
+        { Vector3(-1.0f, 1.0f, 1.0f),   Vector4(1.0f, 0.0f, 0.0f, 1.0f) },
+        { Vector3(-1.0f, -1.0f, -1.0f), Vector4(1.0f, 0.0f, 1.0f, 1.0f) },
+        { Vector3(1.0f, -1.0f, -1.0f),  Vector4(1.0f, 1.0f, 0.0f, 1.0f) },
+        { Vector3(1.0f, -1.0f, 1.0f),   Vector4(1.0f, 1.0f, 1.0f, 1.0f) },
+        { Vector3(-1.0f, -1.0f, 1.0f),  Vector4(0.0f, 0.0f, 0.0f, 1.0f) },
     };
 
-    for (int i = 0; i < sizeof(initVertices); i++)
+    for (int i = 0; i < sizeof(initVertices) / sizeof(SimpleVertex); i++)
     {
         this->vertices[i] = initVertices[i];
     }
 
-    int initIndices[] =
+    unsigned short initIndices[] =
     {
         3,1,0,
         2,1,3,
@@ -55,19 +56,32 @@ void Model::Initialize()
         6,4,5,
         7,4,6
     };
-
-    for (int i = 0; i < sizeof(initIndices); i++)
+    int indexcount = sizeof(initIndices) / sizeof(unsigned short);
+    for (int i = 0; i < indexcount; i++)
     {
         this->indexes[i] = initIndices[i];
     }
 }
 
-const UITypes::VArray<SimpleVertex>& Model::GetVertexData()
+const VArray<SimpleVertex>& Model::GetVertexData() const
 {
     return this->vertices;
 }
 
-const UITypes::VArray<UINT32>& Model::GetIndexData()
+const VArray<UINT16>& Model::GetIndexData() const
 {
     return this->indexes;
+}
+
+Matrix4x4 Model::GetTransform() const
+{
+    //Matrix4x4 transform;
+    // start with just the identity matrix for now.
+
+    return Matrix4x4();
+}
+
+void Model::Tick(float timeSpan)
+{
+
 }

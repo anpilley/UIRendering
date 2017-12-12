@@ -1,7 +1,11 @@
 
 #include "stdafx.h"
+#include "Types\RenderTypes.h"
 #include "DX\GfxDevice.h"
 #include "RenderDevice.h"
+
+std::weak_ptr<GfxDevice> GRenderDevice::graphicsDevice;
+
 
 GRenderDevice::GRenderDevice()
 {

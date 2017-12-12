@@ -17,7 +17,7 @@ struct VS_OUTPUT
 //--------------------------------------------------------------------------------------
 // Vertex Shader
 //--------------------------------------------------------------------------------------
-VS_OUTPUT VS(float4 Pos : POSITION, float4 : Color : COLOR) : SV_POSITION
+VS_OUTPUT VS(float4 Pos : POSITION, float4 Color : COLOR)
 {
     VS_OUTPUT output = (VS_OUTPUT)0;
     output.Pos = mul(Pos, World);

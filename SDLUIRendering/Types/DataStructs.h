@@ -17,10 +17,3 @@ struct SimpleVertex
     UITypes::Vector3 Pos;
     UITypes::Vector4 Color;
 };
-
-struct ConstantBuffer
-{
-    UITypes::Matrix4x4 mWorld;
-    UITypes::Matrix4x4 mView;
-    UITypes::Matrix4x4 mProjection;
-};

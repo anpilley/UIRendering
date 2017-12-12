@@ -48,6 +48,10 @@ void GfxShader::Initialize(std::weak_ptr<GfxDevice> device, LPCWSTR filename, LP
     if (FAILED(hr))
     {
         // couldn't compilethe shader. get details from the error blob.
+        if (errorBlob)
+        {
+            OutputDebugStringA((char*)errorBlob->GetBufferPointer());
+        }
         ThrowIfFailed(hr);
     }
 }

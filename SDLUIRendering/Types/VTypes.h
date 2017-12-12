@@ -82,6 +82,29 @@ namespace UITypes
             m12 = m13 = m14 = m21 = m23 = m24 = m31 = m32 = m34 = m41 = m42 = m43 = 0;
         };
 
+        struct Matrix4x4(float l11, float l12, float l13, float l14,
+            float l21, float l22, float l23, float l24,
+            float l31, float l32, float l33, float l34,
+            float l41, float l42, float l43, float l44)
+        {
+            m11 = l11;
+            m12 = l12;
+            m13 = l13;
+            m14 = l14;
+            m21 = l21;
+            m22 = l22;
+            m23 = l23;
+            m24 = l24;
+            m31 = l31;
+            m32 = l32;
+            m33 = l33;
+            m34 = l34;
+            m41 = l41;
+            m42 = l42;
+            m43 = l43;
+            m44 = l44;
+        }
+
         float m11;
         float m12;
         float m13;

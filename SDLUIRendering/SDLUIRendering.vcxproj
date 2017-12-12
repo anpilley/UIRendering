@@ -20,12 +20,14 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="DX\GfxBuffers.h" />
+    <ClInclude Include="DX\GfxDataBuffer.h" />
     <ClInclude Include="DX\GfxDevice.h" />
     <ClInclude Include="DX\GfxModel.h" />
     <ClInclude Include="DX\GfxPixelShader.h" />
     <ClInclude Include="DX\GfxShader.h" />
     <ClInclude Include="DX\GfxTexture.h" />
     <ClInclude Include="DX\GfxVertexShader.h" />
+    <ClInclude Include="Math\LinearMath.h" />
     <ClInclude Include="RenderDevice.h" />
     <ClInclude Include="Scene\Model.h" />
     <ClInclude Include="Scene\UIScene.h" />
@@ -37,6 +39,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="DX\GfxBuffers.cpp" />
+    <ClCompile Include="DX\GfxDataBuffer.cpp" />
     <ClCompile Include="DX\GfxDevice.cpp" />
     <ClCompile Include="DX\GfxModel.cpp" />
     <ClCompile Include="DX\GfxPixelShader.cpp" />
