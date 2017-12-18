@@ -77,14 +77,21 @@ int WINAPI wWinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE hPrevInstance, 
     gmodel = std::make_shared<GfxModel>();
     gmodel->Initialize(device, model->GetVertexData(), model->GetIndexData());
 
+    UINT64 timeStart = SDL_GetPerformanceCounter();
+    UINT64 timeCurr = timeStart;
+    float t = 0.f;
+
     while (1) {
         SDL_PollEvent(&winEvent);
         if (winEvent.type == SDL_QUIT) {
             break;
         }
+        // update time
+        timeCurr = SDL_GetPerformanceCounter();
+        t = (timeCurr - timeStart) / 1000.f;
 
-        // tick all the things!
-        model->Tick(0.f);
+        // tick all the things! Start from the scene and let it cascade down to all objects in the scene?
+        scene->Tick(t);
 
         UITypes::Vector4 color(0.392156899f, 0.584313750f, 0.929411829f, 1.000000000f);
         swapChain->Clear(color);

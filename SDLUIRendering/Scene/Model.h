@@ -14,7 +14,7 @@ namespace Scene
         const UITypes::VArray<SimpleVertex>& GetVertexData() const;
         const UITypes::VArray<UINT16>& GetIndexData() const;
 
-        void Tick(float timeSpan);
+        void Tick(float frameTime);
 
         UITypes::Matrix4x4 GetTransform() const;
     private:

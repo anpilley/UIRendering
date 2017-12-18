@@ -23,6 +23,8 @@ namespace Scene
         {
             return projection;
         };
+
+        void Tick(float frameTime);
     private:
         UITypes::Matrix4x4 projection;
         UITypes::Matrix4x4 view;

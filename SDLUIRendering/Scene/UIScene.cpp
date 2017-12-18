@@ -38,3 +38,11 @@ void UIScene::Initialize(int width, int height)
     this->projection = VMath::PerspectiveFovLH(PI_ON_2, width / (float)height, 0.01f, 100.0f);
     
 }
+
+void UIScene::Tick(float frameTime)
+{
+    for (int i = 0; i < models.Size(); i++)
+    {
+        models[i]->Tick(frameTime);
+    }
+}

@@ -14,6 +14,7 @@
 // SDL
 #include <SDL.h>
 #include <SDL_syswm.h>
+#include <SDL_timer.h>
 
 // DX
 #include <d3d11.h>

@@ -81,7 +81,8 @@ Matrix4x4 Model::GetTransform() const
     return Matrix4x4();
 }
 
-void Model::Tick(float timeSpan)
+void Model::Tick(float frameTime)
 {
-
+    // rotate our transform
+    DirectX::XMMatrixRotationY(frameTime);
 }
