@@ -74,7 +74,31 @@ void GfxBuffers::Initialize(std::weak_ptr<GfxDevice> gfxdevice, int width, int h
             // Bind to the render target
             ThrowIfFailed(this->d3dDevice->CreateRenderTargetView(texture2d.Get(), nullptr, &view));
 
-            this->d3dImmediateContext->OMSetRenderTargets(1, &view, nullptr);
+            // Create Depth stencil buffer
+            D3D11_TEXTURE2D_DESC descDepth;
+            ZeroMemory(&descDepth, sizeof(descDepth));
+            descDepth.Width = width;
+            descDepth.Height = height;
+            descDepth.MipLevels = 1;
+            descDepth.ArraySize = 1;
+            descDepth.Format = DXGI_FORMAT_D24_UNORM_S8_UINT;
+            descDepth.SampleDesc.Count = 1;
+            descDepth.SampleDesc.Quality = 0;
+            descDepth.Usage = D3D11_USAGE_DEFAULT;
+            descDepth.BindFlags = D3D11_BIND_DEPTH_STENCIL;
+            descDepth.CPUAccessFlags = 0;
+            descDepth.MiscFlags = 0;
+            ThrowIfFailed(this->d3dDevice->CreateTexture2D(&descDepth, nullptr, &depthStencilBuffer));
+
+            // create depth stencil view
+            D3D11_DEPTH_STENCIL_VIEW_DESC descDSView;
+            ZeroMemory(&descDSView, sizeof(descDSView));
+            descDSView.Format = descDepth.Format;
+            descDSView.ViewDimension = D3D11_DSV_DIMENSION_TEXTURE2D;
+            descDSView.Texture2D.MipSlice = 0;
+            ThrowIfFailed(this->d3dDevice->CreateDepthStencilView(depthStencilBuffer.Get() , &descDSView, &depthStencilView));
+
+            this->d3dImmediateContext->OMSetRenderTargets(1, &view, depthStencilView.Get());
 
             this->renderTargetView = view;
 
@@ -120,4 +144,7 @@ void GfxBuffers::Clear(UITypes::Vector4 color)
 {
     FLOAT c[4] = { color.x, color.y, color.z, color.a };
     this->d3dImmediateContext->ClearRenderTargetView(this->renderTargetView.Get(), c);
+
+    this->d3dImmediateContext->ClearDepthStencilView(this->depthStencilView.Get(), D3D11_CLEAR_DEPTH, 1.0f, 0);
+
 }

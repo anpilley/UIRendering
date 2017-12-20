@@ -16,13 +16,14 @@ namespace Scene
 
         void Tick(float frameTime);
 
-        UITypes::Matrix4x4 GetTransform() const;
+        const UITypes::Matrix4x4 GetTransform() const;
     private:
         UITypes::Vector3 position;
         UITypes::Vector3 rotation;
         UITypes::Vector3 scale;
 
-        
+        UITypes::Matrix4x4 transform;
+
         UITypes::VArray<SimpleVertex> vertices;
         UITypes::VArray<UINT16> indexes;
         
