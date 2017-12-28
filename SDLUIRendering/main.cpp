@@ -23,7 +23,8 @@ int WINAPI wWinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE hPrevInstance, 
     std::shared_ptr<GfxBuffers> swapChain;
     std::shared_ptr<GfxVertexShader> vertexShader;
     std::shared_ptr<GfxPixelShader> pixelShader;
-    std::shared_ptr<GfxModel> gmodel;
+    std::shared_ptr<GfxModel> gmodel1;
+    std::shared_ptr<GfxModel> gmodel2;
 
     std::shared_ptr<Scene::UIScene> scene;
 
@@ -31,8 +32,8 @@ int WINAPI wWinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE hPrevInstance, 
     SDL_SysWMinfo wmInfo;
     SDL_Init(SDL_INIT_VIDEO);
 
-    int width = 1280;
-    int height = 720;
+    int width = 800;
+    int height = 600;
 
     window = SDL_CreateWindow("UIRendering", 100, 100, width, height, SDL_WINDOW_SHOWN | SDL_WINDOW_OPENGL);
     
@@ -73,9 +74,13 @@ int WINAPI wWinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE hPrevInstance, 
 
     // go over the models in the scene, create gfxmodels for them to initialize gpu resources.
     Scene::Model * model = scene->GetModels()[0];
+    Scene::Model * model2 = scene->GetModels()[1];
 
-    gmodel = std::make_shared<GfxModel>();
-    gmodel->Initialize(device, model->GetVertexData(), model->GetIndexData());
+    gmodel1 = std::make_shared<GfxModel>();
+    gmodel1->Initialize(device, model->GetVertexData(), model->GetIndexData());
+
+    gmodel2 = std::make_shared<GfxModel>();
+    gmodel2->Initialize(device, model2->GetVertexData(), model2->GetIndexData());
 
     UINT64 timeStart = SDL_GetPerformanceCounter();
     UINT64 timeCurr = timeStart;
@@ -88,7 +93,7 @@ int WINAPI wWinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE hPrevInstance, 
         }
         // update time
         timeCurr = SDL_GetPerformanceCounter();
-        t = (timeCurr - timeStart) / 1000.f;
+        t = (timeCurr - timeStart) / (1000.f * 1000.f);
 
         // tick all the things! Start from the scene and let it cascade down to all objects in the scene?
         scene->Tick(t);
@@ -96,11 +101,16 @@ int WINAPI wWinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE hPrevInstance, 
         UITypes::Vector4 color(0.392156899f, 0.584313750f, 0.929411829f, 1.000000000f);
         swapChain->Clear(color);
 
+
+        device->UpdateConstantBuffer(model2->GetTransform(), scene->GetView(), scene->GetProjection());
+        gmodel2->Draw(vertexShader, pixelShader);
+
         // update camera buffer for next object (view/proj should not change within a scene!)
         device->UpdateConstantBuffer(model->GetTransform(), scene->GetView(), scene->GetProjection());
 
         // update 'world' 
-        gmodel->Draw(vertexShader, pixelShader);
+        gmodel1->Draw(vertexShader, pixelShader);
+        
 
         swapChain->Present();
     }

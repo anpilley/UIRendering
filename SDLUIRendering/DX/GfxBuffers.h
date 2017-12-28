@@ -28,6 +28,7 @@ private:
     Microsoft::WRL::ComPtr<ID3D11RenderTargetView> renderTargetView;
 
     Microsoft::WRL::ComPtr<ID3D11Texture2D> depthStencilBuffer;
+    Microsoft::WRL::ComPtr<ID3D11DepthStencilState> depthState;
     Microsoft::WRL::ComPtr<ID3D11DepthStencilView> depthStencilView;
 
     std::weak_ptr<GfxDevice> gfxDevice;

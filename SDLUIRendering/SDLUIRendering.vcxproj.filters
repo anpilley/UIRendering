@@ -90,6 +90,9 @@
     <ClInclude Include="DX\GfxDataBuffer.h">
       <Filter>Header Files\DX</Filter>
     </ClInclude>
+    <ClInclude Include="Scene\OrbitModel.h">
+      <Filter>Header Files\Scene</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
@@ -134,10 +137,16 @@
     <ClCompile Include="DX\GfxDataBuffer.cpp">
       <Filter>Source Files\DX</Filter>
     </ClCompile>
+    <ClCompile Include="Scene\OrbitModel.cpp">
+      <Filter>Source Files\Scene</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <FxCompile Include="Shaders\Shaders.fx">
       <Filter>Shaders</Filter>
     </FxCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
   </ItemGroup>
 </Project>

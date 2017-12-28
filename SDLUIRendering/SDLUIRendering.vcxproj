@@ -30,6 +30,7 @@
     <ClInclude Include="Math\LinearMath.h" />
     <ClInclude Include="RenderDevice.h" />
     <ClInclude Include="Scene\Model.h" />
+    <ClInclude Include="Scene\OrbitModel.h" />
     <ClInclude Include="Scene\UIScene.h" />
     <ClInclude Include="stdafx.h" />
     <ClInclude Include="Types\DataStructs.h" />
@@ -49,6 +50,7 @@
     <ClCompile Include="RenderDevice.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Scene\Model.cpp" />
+    <ClCompile Include="Scene\OrbitModel.cpp" />
     <ClCompile Include="Scene\UIScene.cpp" />
     <ClCompile Include="stdafx.cpp" />
     <ClCompile Include="Types\Types.cpp" />
@@ -57,6 +59,9 @@
     <FxCompile Include="Shaders\Shaders.fx">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
     </FxCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>15.0</VCProjectVersion>
@@ -169,5 +174,12 @@ xcopy /y /i "$(SolutionDir)SDLUIRendering\Shaders\*.fx" "$(SolutionDir)x64\Debug
   </ItemDefinitionGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
+    <Import Project="..\packages\WinPixEventRuntime.1.0.170918004\build\WinPixEventRuntime.targets" Condition="Exists('..\packages\WinPixEventRuntime.1.0.170918004\build\WinPixEventRuntime.targets')" />
   </ImportGroup>
+  <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
+    <PropertyGroup>
+      <ErrorText>This project references NuGet package(s) that are missing on this computer. Use NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
+    </PropertyGroup>
+    <Error Condition="!Exists('..\packages\WinPixEventRuntime.1.0.170918004\build\WinPixEventRuntime.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\WinPixEventRuntime.1.0.170918004\build\WinPixEventRuntime.targets'))" />
+  </Target>
 </Project>

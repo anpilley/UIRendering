@@ -9,15 +9,15 @@ namespace Scene
         Model();
         ~Model();
 
-        void Initialize();
+        virtual void Initialize();
 
         const UITypes::VArray<SimpleVertex>& GetVertexData() const;
         const UITypes::VArray<UINT16>& GetIndexData() const;
 
-        void Tick(float frameTime);
+        virtual void Tick(float frameTime);
 
         const UITypes::Matrix4x4 GetTransform() const;
-    private:
+    protected:
         UITypes::Vector3 position;
         UITypes::Vector3 rotation;
         UITypes::Vector3 scale;

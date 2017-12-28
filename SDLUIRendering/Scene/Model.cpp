@@ -75,32 +75,28 @@ const VArray<UINT16>& Model::GetIndexData() const
 
 const Matrix4x4 Model::GetTransform() const
 {
-    //Matrix4x4 transform;
-    // start with just the identity matrix for now.
-
     return transform;
 }
 
 void Model::Tick(float frameTime)
 {
     // rotate our transform
-    Matrix4x4 a = VMath::MatRotateY(frameTime / 1000.f + 90.f);
-    Matrix4x4 b = VMath::MatRotateX(frameTime / 1000.f + 180.f);
-    Matrix4x4 c = VMath::MatRotateZ(frameTime / 1000.f + 270.f);
+    Matrix4x4 a = VMath::MatRotateY(frameTime );
+    //Matrix4x4 b = VMath::MatRotateX(frameTime / 1000.f + 180.f);
+    //Matrix4x4 c = VMath::MatRotateZ(frameTime / 1000.f + 270.f);
 
-    transform = VMath::MatrixMultiply(a, VMath::MatrixMultiply(b, c));
+    transform = a;
 
     // scale
-    /*float scaleAmt = sinf(frameTime / 10000.f) + 0.1f;
+    //float scaleAmt = 0.3f; // sinf(frameTime / 10000.f) + 0.3f;
 
-    Matrix4x4 s(scaleAmt, 0.f, 0.f, 0.f, 0.f, scaleAmt, 0.f, 0.f, 0.f, 0.f, scaleAmt, 0.f, 0.f, 0.f, 0.f, 1.f);
-    transform = VMath::MatrixMultiply(transform, s);
-*/
+    //Matrix4x4 s(scaleAmt, 0.f, 0.f, 0.f, 0.f, scaleAmt, 0.f, 0.f, 0.f, 0.f, scaleAmt, 0.f, 0.f, 0.f, 0.f, 1.f);
+    //transform = VMath::MatrixMultiply(transform, s);
 
-    // translate.
-    float moveXAmt = sinf(frameTime / 1000.f) * 4.f;
-    float moveYAmt = cosf(frameTime / 1000.f) * 4.f;
-    Matrix4x4 t(1.f, 0.f, 0.f, 0.f, 0.f, 1.f, 0.f, 0.f, 0.f, 0.f, 1.f, 0.f, moveXAmt, moveYAmt, moveXAmt, 1.f);
-    transform = VMath::MatrixMultiply(transform, t);
+    //// translate.
+    //float moveXAmt = sinf(frameTime / 1000.f) * 4.f;
+    //float moveYAmt = cosf(frameTime / 1000.f) * 4.f;
+    //Matrix4x4 t(1.f, 0.f, 0.f, 0.f, 0.f, 1.f, 0.f, 0.f, 0.f, 0.f, 1.f, 0.f, 0.f, 0.f, moveXAmt * 10.f, 1.f);
+    //transform = VMath::MatrixMultiply(transform, t);
 
 }

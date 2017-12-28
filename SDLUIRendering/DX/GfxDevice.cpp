@@ -90,9 +90,9 @@ void GfxDevice::UpdateConstantBuffer(Matrix4x4 world, Matrix4x4 view, Matrix4x4 
 
 
 
-    /*cb.mWorld = DirectX::XMMatrixTranspose(model);
-    cb.mView = DirectX::XMMatrixTranspose(lview);
-    cb.mProjection = DirectX::XMMatrixTranspose(proj);*/
+    //cb.mWorld = DirectX::XMMatrixTranspose(model);
+    //cb.mView = (lview);
+    //cb.mProjection = (proj);
 
     this->d3dImmediateContext->UpdateSubresource(this->d3dConstantBuffer.Get(), 0, nullptr, &cb, 0, 0);
 }

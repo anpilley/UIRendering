@@ -51,7 +51,7 @@ void GfxBuffers::Initialize(std::weak_ptr<GfxDevice> gfxdevice, int width, int h
             desc.Height = height;
             desc.Format = DXGI_FORMAT_R8G8B8A8_UNORM;
             desc.BufferUsage = DXGI_USAGE_RENDER_TARGET_OUTPUT;
-            desc.BufferCount = 3;
+            desc.BufferCount = 1;
             desc.SampleDesc.Count = 1;
             desc.SampleDesc.Quality = 0;
 
@@ -86,9 +86,33 @@ void GfxBuffers::Initialize(std::weak_ptr<GfxDevice> gfxdevice, int width, int h
             descDepth.SampleDesc.Quality = 0;
             descDepth.Usage = D3D11_USAGE_DEFAULT;
             descDepth.BindFlags = D3D11_BIND_DEPTH_STENCIL;
+
             descDepth.CPUAccessFlags = 0;
             descDepth.MiscFlags = 0;
             ThrowIfFailed(this->d3dDevice->CreateTexture2D(&descDepth, nullptr, &depthStencilBuffer));
+
+            // Create depth stencil settings
+            D3D11_DEPTH_STENCIL_DESC descState;
+            ZeroMemory(&descState, sizeof(D3D11_DEPTH_STENCIL_DESC));
+            descState.DepthEnable = true;
+            descState.DepthWriteMask = D3D11_DEPTH_WRITE_MASK_ALL;
+            descState.DepthFunc = D3D11_COMPARISON_LESS;
+
+            descState.StencilEnable = false;
+            descState.StencilReadMask = 0xFF;
+            descState.StencilWriteMask = 0xFF;
+            
+            descState.FrontFace.StencilFailOp = D3D11_STENCIL_OP_KEEP;
+            descState.FrontFace.StencilDepthFailOp = D3D11_STENCIL_OP_INCR;
+            descState.FrontFace.StencilPassOp = D3D11_STENCIL_OP_KEEP;
+            descState.FrontFace.StencilFunc = D3D11_COMPARISON_ALWAYS;
+
+            descState.BackFace.StencilFailOp = D3D11_STENCIL_OP_KEEP;
+            descState.BackFace.StencilDepthFailOp = D3D11_STENCIL_OP_DECR;
+            descState.BackFace.StencilPassOp = D3D11_STENCIL_OP_KEEP;
+            descState.BackFace.StencilFunc = D3D11_COMPARISON_ALWAYS;
+
+            ThrowIfFailed(this->d3dDevice->CreateDepthStencilState(&descState, &depthState));
 
             // create depth stencil view
             D3D11_DEPTH_STENCIL_VIEW_DESC descDSView;
@@ -97,6 +121,8 @@ void GfxBuffers::Initialize(std::weak_ptr<GfxDevice> gfxdevice, int width, int h
             descDSView.ViewDimension = D3D11_DSV_DIMENSION_TEXTURE2D;
             descDSView.Texture2D.MipSlice = 0;
             ThrowIfFailed(this->d3dDevice->CreateDepthStencilView(depthStencilBuffer.Get() , &descDSView, &depthStencilView));
+
+            this->d3dImmediateContext->OMSetDepthStencilState(depthState.Get(), 1);
 
             this->d3dImmediateContext->OMSetRenderTargets(1, &view, depthStencilView.Get());
 

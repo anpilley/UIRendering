@@ -108,6 +108,17 @@ namespace VMath
         return c;
     }
 
+    inline UITypes::Matrix4x4 MatTranslate(float x, float y, float z)
+    {
+        UITypes::Matrix4x4 r(1.f, 0.f, 0.f, 0.f, 0.f, 1.f, 0.f, 0.f, 0.f, 0.f, 1.f, 0.f, x, y, z, 1.f);
+        return r;
+    }
+
+    inline UITypes::Matrix4x4 MatScale(float x, float y, float z)
+    {
+        return UITypes::Matrix4x4(x, 0.f, 0.f, 0.f, 0.f, y, 0.f, 0.f, 0.f, 0.f, z, 0.f, 0.f, 0.f, 0.f, 1.f);
+    }
+
     inline UITypes::Matrix4x4 LookAtLH(const UITypes::Vector4& eye, const UITypes::Vector4& at, const UITypes::Vector4& up)
     {
         // eyedir = sub (at - eye)
@@ -158,8 +169,8 @@ namespace VMath
     {
         // check nearZ != farZ
 
-        float sinFov = sin(0.5f * FovAngleY);
-        float cosFov = cos(0.5f * FovAngleY);
+        float sinFov = sinf(0.5f * FovAngleY);
+        float cosFov = cosf(0.5f * FovAngleY);
 
         float height = cosFov / sinFov;
 
