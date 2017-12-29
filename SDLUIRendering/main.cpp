@@ -22,9 +22,10 @@ int WINAPI wWinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE hPrevInstance, 
     std::shared_ptr<GfxDevice> device;
     std::shared_ptr<GfxBuffers> swapChain;
     std::shared_ptr<GfxVertexShader> vertexShader;
-    std::shared_ptr<GfxPixelShader> pixelShader;
+    std::shared_ptr<GfxPixelShader> lightPixelShader;
+    std::shared_ptr<GfxPixelShader> solidPixelShader;
     std::shared_ptr<GfxModel> gmodel1;
-    std::shared_ptr<GfxModel> gmodel2;
+    //std::shared_ptr<GfxModel> gmodel2;
 
     std::shared_ptr<Scene::UIScene> scene;
 
@@ -64,8 +65,11 @@ int WINAPI wWinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE hPrevInstance, 
     vertexShader = std::make_shared<GfxVertexShader>();
     vertexShader->Initialize(device, L"Shaders\\Shaders.fx", "VS", "vs_4_0");
 
-    pixelShader = std::make_shared<GfxPixelShader>();
-    pixelShader->Initialize(device, L"Shaders\\Shaders.fx", "PS", "ps_4_0");
+    lightPixelShader = std::make_shared<GfxPixelShader>();
+    lightPixelShader->Initialize(device, L"Shaders\\Shaders.fx", "PS", "ps_4_0");
+
+    solidPixelShader = std::make_shared<GfxPixelShader>();
+    solidPixelShader->Initialize(device, L"Shaders\\Shaders.fx", "PSSolid", "ps_4_0");
 
     device->SetupConstantBuffer();
 
@@ -74,13 +78,13 @@ int WINAPI wWinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE hPrevInstance, 
 
     // go over the models in the scene, create gfxmodels for them to initialize gpu resources.
     Scene::Model * model = scene->GetModels()[0];
-    Scene::Model * model2 = scene->GetModels()[1];
+    //Scene::Model * model2 = scene->GetModels()[1];
 
     gmodel1 = std::make_shared<GfxModel>();
     gmodel1->Initialize(device, model->GetVertexData(), model->GetIndexData());
 
-    gmodel2 = std::make_shared<GfxModel>();
-    gmodel2->Initialize(device, model2->GetVertexData(), model2->GetIndexData());
+    /*gmodel2 = std::make_shared<GfxModel>();
+    gmodel2->Initialize(device, model2->GetVertexData(), model2->GetIndexData());*/
 
     UINT64 timeStart = SDL_GetPerformanceCounter();
     UINT64 timeCurr = timeStart;
@@ -102,14 +106,28 @@ int WINAPI wWinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE hPrevInstance, 
         swapChain->Clear(color);
 
 
-        device->UpdateConstantBuffer(model2->GetTransform(), scene->GetView(), scene->GetProjection());
-        gmodel2->Draw(vertexShader, pixelShader);
+       /* device->UpdateConstantBuffer(model2->GetTransform(), scene->GetView(), scene->GetProjection());
+        gmodel2->Draw(vertexShader, pixelShader);*/
 
         // update camera buffer for next object (view/proj should not change within a scene!)
-        device->UpdateConstantBuffer(model->GetTransform(), scene->GetView(), scene->GetProjection());
+        // hardcode two light colors:
+        UITypes::Vector4 vLightDirs[2] =
+        {
+            UITypes::Vector4(-0.577f, 0.577f, -0.577f, 1.f),
+            UITypes::Vector4(0.f, 0.f, -1.f, 1.f)
+        };
+        UITypes::Vector4 vLightColors[2] =
+        {
+            UITypes::Vector4(0.5f, 0.5f, 0.5f, 1.f),
+            UITypes::Vector4(0.5f, 0.f, 0.f, 1.f)
+        };
+        UITypes::Vector4 ambient(0.f, 1.f, 0.f, 1.f);
+
+        device->UpdateConstantBuffer(model->GetTransform(), scene->GetView(), scene->GetProjection(),
+            vLightDirs, vLightColors, ambient);
 
         // update 'world' 
-        gmodel1->Draw(vertexShader, pixelShader);
+        gmodel1->Draw(vertexShader, lightPixelShader);
         
 
         swapChain->Present();

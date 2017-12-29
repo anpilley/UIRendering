@@ -7,13 +7,13 @@ struct SimpleVertex
     struct SimpleVertex()
     {
         Pos = UITypes::Vector3::Zero;
-        Color = UITypes::Vector4::Zero;
+        Norm = UITypes::Vector3::Zero;
     }
-    struct SimpleVertex(UITypes::Vector3 pos, UITypes::Vector4 color)
+    struct SimpleVertex(UITypes::Vector3 pos, UITypes::Vector3 normal)
     {
         Pos = pos;
-        Color = color;
+        Norm = normal;
     }
     UITypes::Vector3 Pos;
-    UITypes::Vector4 Color;
+    UITypes::Vector3 Norm;
 };

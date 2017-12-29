@@ -8,6 +8,9 @@ struct DXConstantBuffer
     DirectX::XMMATRIX mWorld;
     DirectX::XMMATRIX mView;
     DirectX::XMMATRIX mProjection;
+    DirectX::XMFLOAT4 vLightDir[2];
+    DirectX::XMFLOAT4 vLightColor[2];
+    DirectX::XMFLOAT4 vOutputColor;
 };
 
 class GfxDevice
@@ -25,7 +28,14 @@ public:
     };
 
     void SetupConstantBuffer();
-    void UpdateConstantBuffer(UITypes::Matrix4x4 world, UITypes::Matrix4x4 view, UITypes::Matrix4x4 projection);
+    void UpdateConstantBuffer(
+        UITypes::Matrix4x4 world,
+        UITypes::Matrix4x4 view,
+        UITypes::Matrix4x4 projection,
+        UITypes::Vector4 lightDir[2],
+        UITypes::Vector4 lightColor[2],
+        UITypes::Vector4 ambientColor
+    );
     ID3D11Buffer* GetConstantBuffer() { return d3dConstantBuffer.Get(); };
 
 private:

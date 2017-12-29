@@ -1,6 +1,7 @@
 #pragma once
 
 #define PI_ON_2 1.57079633f
+#define PI_ON_4 0.785398163f
 
 namespace VMath
 {
@@ -89,7 +90,7 @@ namespace VMath
 
         UITypes::Matrix4x4 b(1.f, 0.f, 0.f, 0.f,
                     0.f, cosineAngle, -sineAngle, 0.f, 
-                    0.f, sineAngle, -cosineAngle, 0.f, 
+                    0.f, sineAngle, cosineAngle, 0.f, 
                     0.f, 0.f, 0.f, 1.f);
 
         return b;

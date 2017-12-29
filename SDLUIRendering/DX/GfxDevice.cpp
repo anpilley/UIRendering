@@ -69,30 +69,29 @@ DirectX::XMMATRIX ToDX(Matrix4x4 mat)
         mat.m41, mat.m42, mat.m43, mat.m44);
 }
 
-void GfxDevice::UpdateConstantBuffer(Matrix4x4 world, Matrix4x4 view, Matrix4x4 projection)
+DirectX::XMFLOAT4 ToDX(const Vector4& v)
+{
+    return DirectX::XMFLOAT4(v.x, v.y, v.z, v.a);
+}
+
+
+void GfxDevice::UpdateConstantBuffer(
+    Matrix4x4 world, 
+    Matrix4x4 view, 
+    Matrix4x4 projection,
+    Vector4 lightDir[2],
+    Vector4 lightColor[2],
+    Vector4 ambientColor)
 {
     DXConstantBuffer cb;
     cb.mWorld = DirectX::XMMatrixTranspose(ToDX(world));
     cb.mView = DirectX::XMMatrixTranspose(ToDX(view));
     cb.mProjection = DirectX::XMMatrixTranspose(ToDX(projection));
-
-    //DirectX::XMMATRIX model = DirectX::XMMatrixTranspose(DirectX::XMMatrixIdentity());
-
-    //// Initialize the view matrix
-    //DirectX::XMVECTOR Eye = DirectX::XMVectorSet(0.0f, 1.0f, -5.0f, 0.0f);
-    //DirectX::XMVECTOR At = DirectX::XMVectorSet(0.0f, 1.0f, 0.0f, 0.0f);
-    //DirectX::XMVECTOR Up = DirectX::XMVectorSet(0.0f, 1.0f, 0.0f, 0.0f);
-    //DirectX::XMMATRIX lview = DirectX::XMMatrixLookAtLH(Eye, At, Up);
-    //lview = DirectX::XMMatrixTranspose(lview);
-
-    //// Initialize the projection matrix
-    //DirectX::XMMATRIX proj = DirectX::XMMatrixTranspose(DirectX::XMMatrixPerspectiveFovLH(DirectX::XM_PIDIV2, 1280 / (FLOAT)720, 0.01f, 100.0f));
-
-
-
-    //cb.mWorld = DirectX::XMMatrixTranspose(model);
-    //cb.mView = (lview);
-    //cb.mProjection = (proj);
+    cb.vLightDir[0] = ToDX(lightDir[0]);
+    cb.vLightDir[1] = ToDX(lightDir[1]);
+    cb.vLightColor[0] = ToDX(lightColor[0]);
+    cb.vLightColor[1] = ToDX(lightColor[1]);
+    cb.vOutputColor = ToDX(ambientColor);
 
     this->d3dImmediateContext->UpdateSubresource(this->d3dConstantBuffer.Get(), 0, nullptr, &cb, 0, 0);
 }
