@@ -55,7 +55,6 @@ float4 PS(PS_INPUT input) : SV_Target
     }
 
     finalColor.a = 1;
-    finalColor.x = 1;
     return finalColor;
 }
 

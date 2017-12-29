@@ -21,7 +21,7 @@ void Model::Initialize()
 {
     SimpleVertex initVertices[] =
     { //  relative position             normal
-        { Vector3(-1.f, 1.f, -1.f), Vector3(0.f, 1.f, 0.f)},
+        { Vector3(-1.f, 1.f, -1.f), Vector3(0.f, 1.f, 0.f) },
         { Vector3(1.f, 1.f, -1.f), Vector3(0.f, 1.f, 0.f) },
         { Vector3(1.f, 1.f, 1.f), Vector3(0.f, 1.f, 0.f) },
         { Vector3(-1.f, 1.f, 1.f), Vector3(0.f, 1.f, 0.f) },
