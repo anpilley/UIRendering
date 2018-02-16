@@ -110,7 +110,7 @@ int WINAPI wWinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE hPrevInstance, 
         gmodel2->Draw(vertexShader, pixelShader);*/
 
         // update camera buffer for next object (view/proj should not change within a scene!)
-        // hardcode two light colors:
+        // hardcode two light directions/colors:
         UITypes::Vector4 vLightDirs[2] =
         {
             UITypes::Vector4(-0.577f, 0.577f, -0.577f, 1.f),

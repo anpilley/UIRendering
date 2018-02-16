@@ -103,8 +103,10 @@ const Matrix4x4 Model::GetTransform() const
 void Model::Tick(float frameTime)
 {
     // rotate our transform
-    Matrix4x4 z = VMath::MatRotateZ(45);
-    Matrix4x4 x = VMath::MatRotateX(45);
-    Matrix4x4 a = VMath::MatRotateY(frameTime );
-    transform = VMath::MatrixMultiply(VMath::MatrixMultiply(x, z) , a);
+    //Matrix4x4 y = VMath::MatRotateY(45);
+    //Matrix4x4 x = VMath::MatRotateX(45);
+    //Matrix4x4 a = VMath::MatRotateY(frameTime );
+    //transform = VMath::MatrixMultiply(x, y);
+
+    transform = UITypes::Matrix4x4();
 }
